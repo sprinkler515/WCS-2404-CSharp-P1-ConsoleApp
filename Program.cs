@@ -4,7 +4,27 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            ProgramConsole();
+        }
+
+        static void ProgramConsole()
+        {
+            Menu menu = new();
+
+            while (!menu.Exit)
+            {
+                menu.Display();
+                menu.Select();
+
+                if (menu.Option == 1)
+                {
+                    Console.WriteLine("Students");
+                }
+                else if (menu.Option == 2)
+                {
+                    Console.WriteLine("Subjects");
+                }
+            }
         }
     }
 }
