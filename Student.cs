@@ -1,7 +1,17 @@
 ﻿namespace P1_AppConsole
 {
-    public class Student
+    public class Student : Campus
     {
+        private int _option;
+        public int Option
+        {
+            get => _option;
+        }
+        public bool Exit
+        {
+            get => _option == 5;
+        }
+
         private int _id;
 
         /* In progress:
@@ -24,14 +34,18 @@
             return rand.Next(1000, 9999);
         }
 
-        public void DisplayStudentMenu()
+        public void Select()
         {
-            Console.WriteLine("Choose an option:");
-            Console.WriteLine("1. List students");
-            Console.WriteLine("2. Create student");
-            Console.WriteLine("3. Consult specific student");
-            Console.WriteLine("4. Add grade to a specific student");
-            Console.WriteLine("5. Back to menu");
+            string[] menu = [
+                "1. List students",
+                "2. Create student",
+                "3. Consult specific student",
+                "4. Add grade to a specific student",
+                "5. Back to menu"
+                ];
+
+            DisplayMenu(menu);
+            _option = SelectMenu(menu);
         }
     }
 }
