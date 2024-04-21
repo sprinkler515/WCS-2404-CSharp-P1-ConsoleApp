@@ -3,11 +3,11 @@
     public class Student : Campus
     {
         private int _option;
-        public int Option
+        public new int Option
         {
             get => _option;
         }
-        public bool Exit
+        public new bool Exit
         {
             get => _option == 5;
         }
@@ -23,7 +23,7 @@
          * private double _avgScore;
         */
 
-        public void CreateNewStudent()
+        public void CreateStudent()
         {
             _id = SetId();
         }
@@ -34,7 +34,7 @@
             return rand.Next(1000, 9999);
         }
 
-        public void Select()
+        public new void Select()
         {
             string[] menu = [
                 "1. List students",
