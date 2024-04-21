@@ -44,8 +44,8 @@
                 "5. Back to menu"
                 ];
 
-            DisplayMenu(menu);
-            _option = SelectMenu(menu);
+            Menu.DisplayMenu(menu);
+            _option = Menu.SelectMenu(menu);
         }
     }
 }
