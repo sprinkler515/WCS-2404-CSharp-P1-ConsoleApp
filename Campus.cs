@@ -11,7 +11,7 @@
                 Console.WriteLine(option);
             Console.WriteLine();
         }
-        
+
         protected int SelectMenu(string[] menu)
         {
             string choice;
@@ -24,9 +24,11 @@
 
             if (!isNumber)
                 for (int i = 1; i <= menu.Length; i++)
-                    if (menu[i].Contains(choice))
+                {
+                    string s = menu[i - 1].ToLower();
+                    if (s.Contains(choice))
                         option = i;
-
+                }
             if (option <= 0 || option > menu.Length)
                 Console.WriteLine("Invalid input");
 
