@@ -1,6 +1,6 @@
 ﻿namespace P1_AppConsole
 {
-    internal partial class Program
+    public class Program
     {
         static void Main(string[] args)
         {
