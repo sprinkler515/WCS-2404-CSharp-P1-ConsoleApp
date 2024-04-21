@@ -1,6 +1,6 @@
 ﻿namespace P1_AppConsole
 {
-    internal class Program
+    internal partial class Program
     {
         static void Main(string[] args)
         {
@@ -13,7 +13,6 @@
 
             while (!menu.Exit)
             {
-                menu.Display();
                 menu.Select();
 
                 if (menu.Option == 1)

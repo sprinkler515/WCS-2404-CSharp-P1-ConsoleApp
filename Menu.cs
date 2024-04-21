@@ -1,6 +1,6 @@
 ﻿namespace P1_AppConsole
 {
-    public class Menu
+    public class Menu : Campus
     {
         private int _option;
 
@@ -14,33 +14,16 @@
             get => _option == 3;
         }
 
-        public void Display()
-        {
-            Console.WriteLine("Choose an option:");
-            Console.WriteLine("1. Students");
-            Console.WriteLine("2. Subjects");
-            Console.WriteLine("3. Exit\n");
-        }
-
         public void Select()
         {
-            string option;
-            bool isNumber;
+            string[] menu = [
+                "1. Students",
+                "2. Subjects",
+                "3. Exit"
+                ];
 
-            Console.Write("Enter your choice: ");
-            option = Console.ReadLine() ?? "";
-            option = option.ToLower();
-            isNumber = int.TryParse(option, out _option);
-
-            if (!isNumber)
-                if ("students".Contains(option))
-                    _option = 1;
-                else if ("subjects".Contains(option))
-                    _option = 2;
-                else if ("exit".Contains(option))
-                    _option = 3;
-            if (_option <= 0 || _option > 3)
-                Console.WriteLine("Invalid input");
-        }
+            DisplayMenu(menu);
+            _option = SelectMenu(menu);
+         }
     }
 }
