@@ -9,17 +9,17 @@
 
         static void ProgramConsole()
         {
-            Menu menu = new();
+            Campus campus = new();
 
-            while (!menu.Exit)
+            while (!campus.Exit)
             {
-                menu.Select();
+                campus.Select();
 
-                if (menu.Option == 1)
+                if (campus.Option == 1)
                 {
                     Console.WriteLine("Students");
                 }
-                else if (menu.Option == 2)
+                else if (campus.Option == 2)
                 {
                     Console.WriteLine("Subjects");
                 }

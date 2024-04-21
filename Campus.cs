@@ -1,18 +1,43 @@
-﻿namespace P1_AppConsole
+﻿using System.ComponentModel.Design;
+
+namespace P1_AppConsole
 {
     public class Campus
     {
         protected Dictionary<int, Student> Students = [];
         protected Dictionary<int, Subject> Subjects = [];
 
-        protected void DisplayMenu(string[] menu)
+        private int _option;
+        public int Option
+        {
+            get => _option;
+        }
+
+        public bool Exit
+        {
+            get => _option == 3;
+        }
+
+        public void Select()
+        {
+            string[] menu = [
+                "1. Students",
+                "2. Subjects",
+                "3. Exit"
+                ];
+
+            DisplayMenu(menu);
+            _option = SelectMenu(menu);
+        }
+
+        public void DisplayMenu(string[] menu)
         {
             foreach (string option in menu)
                 Console.WriteLine(option);
             Console.WriteLine();
         }
 
-        protected int SelectMenu(string[] menu)
+        public int SelectMenu(string[] menu)
         {
             string choice;
             bool isNumber;
