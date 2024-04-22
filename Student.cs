@@ -2,6 +2,13 @@
 {
     public class Student : Campus
     {
+        private int _id;
+        private string _firstName;
+        private string _lastName;
+        private double _age;
+        private string _birthdate;
+        private Dictionary<double, string> _grades;
+        private double _avgScore;
         private int _option;
         public new int Option
         {
@@ -12,26 +19,13 @@
             get => _option == 5;
         }
 
-        private int _id;
-
-        /* In progress:
-         * private string _firstName;
-         * private string _lastName;
-         * private double _age;
-         * private string _birthday;
-         * private List<double> _grades;
-         * private double _avgScore;
-        */
-
-        public void CreateStudent()
+        public Student()
         {
             _id = SetId();
-        }
-
-        private int SetId()
-        {
-            var rand = new Random();
-            return rand.Next(1000, 9999);
+            _firstName = SetFirstName();
+            _lastName = SetLastName();
+            _birthdate = SetBirthDate();
+            _grades = [];
         }
 
         public new void Select()
@@ -46,6 +40,30 @@
 
             Menu.DisplayMenu(menu);
             _option = Menu.SelectMenu(menu);
+        }
+
+        private int SetId()
+        {
+            var rand = new Random();
+            return rand.Next(1000, 9999);
+        }
+        private string SetFirstName()
+        {
+            Console.Write("Enter first name: ");
+            return Console.ReadLine() ?? "";
+        }
+        private string SetLastName()
+        {
+            Console.Write("Enter last name: ");
+            return Console.ReadLine() ?? "";
+        }
+        private string SetBirthDate()
+        {
+            string birthdate = "";
+
+            Console.Write("Enter birthdate (format: MMDDYYYY)");
+
+            return birthdate;
         }
     }
 }
