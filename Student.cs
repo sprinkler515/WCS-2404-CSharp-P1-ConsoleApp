@@ -9,15 +9,6 @@
         private string _birthdate;
         private Dictionary<double, string> _grades;
         private double _avgScore;
-        private int _option;
-        public new int Option
-        {
-            get => _option;
-        }
-        public new bool Exit
-        {
-            get => _option == 5;
-        }
 
         public Student()
         {
@@ -28,20 +19,6 @@
             _grades = [];
         }
 
-        public new void Select()
-        {
-            string[] menu = [
-                "1. List students",
-                "2. Create student",
-                "3. Consult specific student",
-                "4. Add grade to a specific student",
-                "5. Back to menu"
-                ];
-
-            Menu.DisplayMenu(menu);
-            _option = Menu.SelectMenu(menu);
-        }
-
         private int SetId()
         {
             var rand = new Random();
@@ -50,18 +27,25 @@
         private string SetFirstName()
         {
             Console.Write("Enter first name: ");
+            // Check valid input
+
             return Console.ReadLine() ?? "";
         }
         private string SetLastName()
         {
             Console.Write("Enter last name: ");
+            // Check valid input
+
             return Console.ReadLine() ?? "";
         }
         private string SetBirthDate()
         {
-            string birthdate = "";
+            string birthdate;
 
             Console.Write("Enter birthdate (format: MMDDYYYY)");
+            birthdate = Console.ReadLine() ?? "Invalid input";
+            // Check valid input
+            // Format input
 
             return birthdate;
         }
