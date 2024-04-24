@@ -10,20 +10,54 @@
         static void ProgramConsole()
         {
             Campus campus = new();
+            bool exit = false;
+            Console.WriteLine(DateTime.Now);
 
-            while (!campus.Exit)
+            while (!exit)
             {
-                campus.Select();
+                int option = Menu.MainMenu();
 
-                if (campus.Option == 1)
+                switch (option)
                 {
-                    Console.WriteLine("Students");
-                }
-                else if (campus.Option == 2)
-                {
-                    Console.WriteLine("Subjects");
+                    case 1:
+                        StudentMenu(campus.Students);
+                        break;
+                    case 2:
+                        Console.WriteLine("Subjects");
+                        break;
+                    case 3:
+                        exit = true;
+                        break;
                 }
             }
+        }
+
+        public static void StudentMenu(Dictionary<int, Student> students)
+        {
+            bool exit = false;
+
+            while (!exit)
+            {
+                int option = Menu.StudentMenu();
+
+                switch (option)
+                {
+                    case 1:
+                    case 2:
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                        exit = true;
+                        break;
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public static void CreateStudent()
+        {
+            Student student = new();
         }
     }
 }
