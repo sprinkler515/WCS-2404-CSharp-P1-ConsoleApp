@@ -20,7 +20,7 @@
                 switch (Option)
                 {
                     case 1:
-                        campus.DisplayStudents();
+                        campus.Display(campus.Students);
                         break;
                     case 2:
                         break;

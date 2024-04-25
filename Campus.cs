@@ -1,29 +1,30 @@
-﻿using System.ComponentModel.Design;
-
-namespace P1_AppConsole
+﻿namespace P1_AppConsole
 {
     public class Campus
     {
-        public Dictionary<int, Student> Students;
-        public Dictionary<int, string> Subjects;
+        public string Name { get; private set; }
+        public Dictionary<int, Student> Students { get; set; }
+        public Dictionary<int, string> Subjects { get; set; }
 
-        public Campus()
+        public Campus(string name)
         {
+            Name = name;
             Students = [];
             Subjects = [];
         }
 
-        public void DisplayStudents()
+        public void Display(Dictionary<int, Student> students)
         {
-            foreach (KeyValuePair<int, Student> student in Students)
-                Console.WriteLine($"#{student.Key}\t: {student.Value}");
+            foreach (KeyValuePair<int, Student> entry in students)
+                Console.WriteLine($"#{entry.Key}\t: {entry.Value}");
             Console.WriteLine();
+
         }
 
-        public void DisplaySubjects()
+        public void Display(Dictionary<int, string> subjects)
         {
-            foreach(KeyValuePair<int,string> subject in Subjects)
-                Console.WriteLine($"{subject.Key} {subject.Value}");
+            foreach (KeyValuePair<int, string> entry in subjects)
+                Console.WriteLine($"#{entry.Key}\t: {entry.Value}");
             Console.WriteLine();
         }
     }
