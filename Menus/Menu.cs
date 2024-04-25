@@ -1,10 +1,10 @@
-﻿namespace P1_AppConsole.menu
+﻿namespace P1_AppConsole.Menus
 {
     public abstract class Menu
     {
-        public List<string> Options;
-        public int Option;
-        public bool Exit;
+        public List<string> Options { get; private set; }
+        public bool Exit { get; protected set; }
+        public int Option { get; protected set; }
 
         public Menu()
         {
@@ -13,14 +13,14 @@
             Exit = false;
         }
 
-        public void Display()
+        protected void Display()
         {
             foreach (string option in Options)
                 Console.WriteLine(option);
             Console.WriteLine();
         }
 
-        public void Select()
+        protected void Select()
         {
             string select;
             bool valid;
@@ -28,7 +28,8 @@
             Console.Write("Enter your choice: ");
             select = Console.ReadLine() ?? "Invalid input";
             select = select.ToLower();
-            valid = int.TryParse(select, out Option);
+            valid = int.TryParse(select, out int option);
+            Option = option;
 
             if (!valid)
                 for (int i = 1; i <= Options.Count; i++)
@@ -37,12 +38,8 @@
                     if (s.Contains(select) && s.Length >= 3)
                         Option = i;
                 }
-            /*
-            if (Option <= 0 || Option > Options.Count)
-                Console.WriteLine("Invalid input");
-            */
         }
 
-        public abstract void Selection();
+        public abstract void Selection(Campus campus);
     }
 }
