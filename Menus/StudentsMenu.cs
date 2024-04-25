@@ -1,8 +1,8 @@
-﻿namespace P1_AppConsole.menu
+﻿namespace P1_AppConsole.Menus
 {
-    public partial class StudentsMenu : Menu
+    public class StudentsMenu : Menu
     {
-        StudentsMenu()
+        public StudentsMenu()
         {
             Options.Add("1. List all students");
             Options.Add("2. Add new student");
@@ -11,13 +11,16 @@
             Options.Add("5. Back to menu");
         }
 
-        public override void Selection()
+        public override void Selection(Campus campus)
         {
             while (!Exit)
             {
+                Display();
+                Select();
                 switch (Option)
                 {
                     case 1:
+                        campus.DisplayStudents();
                         break;
                     case 2:
                         break;
@@ -26,7 +29,7 @@
                     case 4:
                         break;
                     case 5:
-                        Exit = false;
+                        Exit = true;
                         break;
                     default:
                         Console.WriteLine("Invalid option.");
