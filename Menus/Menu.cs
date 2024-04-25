@@ -38,6 +38,7 @@
                     if (s.Contains(select) && s.Length >= 3)
                         Option = i;
                 }
+            Console.WriteLine();
         }
 
         public abstract void Selection(Campus campus);

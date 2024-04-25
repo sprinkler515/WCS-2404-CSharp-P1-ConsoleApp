@@ -19,17 +19,14 @@
                 switch (Option)
                 {
                     case 1:
-                        campus.DisplaySubjects();
+                        campus.Display(campus.Subjects);
                         break;
                     case 2:
-                        string name; 
-                        Console.WriteLine("Subject to add: ");
-                        name = Console.ReadLine() ?? "";
-                        name = Tools.NameCheck(name);
-                        Subject subject = new(name);
-                        campus.Subjects.Add(subject);
+                        Subject subject = new(Tools.NameEntry());
+                        campus.Subjects.Add(subject.ID, subject.Name);
                         break;
                     case 3:
+                        Tools.IDRemoval(campus.Subjects);
                         break;
                     case 4:
                         Exit = true;
