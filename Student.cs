@@ -2,16 +2,17 @@
 {
     public class Student : Campus
     {
-        public int ID { get; private set; }
-        public string? FirstName { get; private set; }
-        public string? LastName { get; private set; }
-        public double Age { get; private set; }
-        public string? Birthdate { get; private set; }
-        public Dictionary<string, Dictionary<int, string>> Grades { get; private set; }
-        public double Average { get; private set; }
+        private string? FirstName { get; set; }
+        private string? LastName { get; set; }
+        private string? Birthdate { get; set; }
+        private Dictionary<string, Dictionary<int, string>> Grades { get; set; }
+        private double Average { get; set; }
 
-        public Student()
+        public Student(string firstName, string lastName, string birthdate) : base(lastName)
         {
+            FirstName = firstName;
+            LastName = lastName;
+            Birthdate = birthdate;
             Grades = [];
         }
 

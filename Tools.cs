@@ -20,31 +20,21 @@
 
         public static int IDEntry()
         {
-            int id = 0;
-            bool valid = false;
+            bool valid;
 
-            while (!valid)
-            {
-                Console.Write("Enter id: ");
-                valid = int.TryParse(Console.ReadLine(), out id);
-                if (!valid)
-                    Console.WriteLine("Error. Please enter a number.");
-            }
+            Console.Write("Enter id: ");
+            valid = int.TryParse(Console.ReadLine(), out int id);
+            if (!valid)
+                Console.WriteLine("Error. Please enter a number.");
             return id;
         }
 
-        public static void IDRemoval(Dictionary <int, string> target)
+        public static void IDRemoval(Dictionary<int, string> target)
         {
-            int id = 0;
-            bool exist = false;
-            while (!exist)
-            {
-                id = IDEntry();
-                exist = target.ContainsKey(id);
-                if (!exist)
-                    Console.WriteLine("Unknown ID");
-            }
-            target.Remove(id);
+            int id = IDEntry();
+            if (!target.ContainsKey(id))
+                Console.WriteLine("Unknown ID");
+            else target.Remove(id);
             Console.WriteLine();
         }
     }

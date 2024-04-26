@@ -1,16 +1,17 @@
 ﻿namespace P1_AppConsole.Menus
 {
-    public class SubjectsMenu : Menu
+    public class SubjectsManager : CampusManager, IDisplay
     {
-        public SubjectsMenu()
+        public SubjectsManager()
         {
+            Options.Clear();
             Options.Add("1. List subjects");
             Options.Add("2. Add new subject");
             Options.Add("3. Delete subject");
             Options.Add("4. Back to menu");
         }
 
-        public override void Selection(Campus campus)
+        protected override void Selection()
         {
             while (!Exit)
             {
@@ -19,14 +20,11 @@
                 switch (Option)
                 {
                     case 1:
-                        campus.Display(campus.Subjects);
+                        Campus.DisplaySubjects();
                         break;
                     case 2:
-                        Subject subject = new(Tools.NameEntry());
-                        campus.Subjects.Add(subject.ID, subject.Name);
                         break;
                     case 3:
-                        Tools.IDRemoval(campus.Subjects);
                         break;
                     case 4:
                         Exit = true;
@@ -36,6 +34,19 @@
                         break;
                 }
             }
+        }
+
+        public new void Display()
+        {
+            int len = 70;
+
+            for (int i = 0; i < len; i++)
+                Console.Write("-");
+            Console.WriteLine("\nSubjects :\n");
+
+            foreach (string option in Options)
+                Console.WriteLine(option);
+            Console.WriteLine();
         }
     }
 }

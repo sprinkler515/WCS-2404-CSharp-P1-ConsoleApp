@@ -1,9 +1,10 @@
 ﻿namespace P1_AppConsole.Menus
 {
-    public class StudentsMenu : Menu
+    public class StudentsManager : CampusManager, IDisplay
     {
-        public StudentsMenu()
+        public StudentsManager()
         {
+            Options.Clear();
             Options.Add("1. List all students");
             Options.Add("2. Add new student");
             Options.Add("3. Check student");
@@ -11,7 +12,7 @@
             Options.Add("5. Back to menu");
         }
 
-        public override void Selection(Campus campus)
+        protected override void Selection()
         {
             while (!Exit)
             {
@@ -20,7 +21,6 @@
                 switch (Option)
                 {
                     case 1:
-                        campus.Display(campus.Students);
                         break;
                     case 2:
                         break;
@@ -36,6 +36,13 @@
                         break;
                 }
             }
+        }
+
+        public new void Display()
+        {
+            foreach (string option in Options)
+                Console.WriteLine(option);
+            Console.WriteLine();
         }
     }
 }

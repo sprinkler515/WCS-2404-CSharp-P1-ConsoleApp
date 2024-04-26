@@ -2,23 +2,9 @@
 {
     public abstract class Menu
     {
-        public List<string> Options { get; private set; }
-        public bool Exit { get; protected set; }
-        public int Option { get; protected set; }
-
-        public Menu()
-        {
-            Options = [];
-            Option = 0;
-            Exit = false;
-        }
-
-        protected void Display()
-        {
-            foreach (string option in Options)
-                Console.WriteLine(option);
-            Console.WriteLine();
-        }
+        protected List<string> Options { get; set; } = [];
+        protected bool Exit { get; set; }
+        protected int Option { get; set; }
 
         protected void Select()
         {
@@ -35,12 +21,12 @@
                 for (int i = 1; i <= Options.Count; i++)
                 {
                     string s = Options[i - 1].ToLower();
-                    if (s.Contains(select) && s.Length >= 3)
+                    if (s.Contains(select) && select.Length >= 3)
                         Option = i;
                 }
             Console.WriteLine();
         }
 
-        public abstract void Selection(Campus campus);
+        protected abstract void Selection();
     }
 }
