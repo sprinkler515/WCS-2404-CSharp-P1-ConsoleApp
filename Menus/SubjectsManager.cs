@@ -23,8 +23,10 @@
                         Campus.DisplaySubjects();
                         break;
                     case 2:
+                        Campus.Subjects.Add(new Subject());
                         break;
                     case 3:
+                        Campus.RemoveSubject();
                         break;
                     case 4:
                         Exit = true;
