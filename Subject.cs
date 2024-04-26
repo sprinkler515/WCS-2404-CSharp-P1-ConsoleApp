@@ -3,7 +3,7 @@
     public class Subject : Campus
     {
         private int _id { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public int ID
         {
             get
@@ -21,11 +21,26 @@
             set { _id = value; }
         }
 
-        public Subject(string name) : base(name)
+        public Subject()
         {
             Random rand = new();
-            Name = name;
             _id = rand.Next(100, 1000);
+            SetName();
         }
+
+        private void SetName()
+        {
+            Name = "";
+
+            while (String.IsNullOrEmpty(Name) || Name.Length < 2)
+            {
+                Console.Write("Enter a subject name: ");
+                Name = Console.ReadLine() ?? "";
+                if (String.IsNullOrEmpty(Name) || Name.Length < 2)
+                    Console.WriteLine("Error. Enter a valid name.");
+            }
+            Console.WriteLine();
+        }
+
     }
 }

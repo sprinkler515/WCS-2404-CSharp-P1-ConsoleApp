@@ -8,7 +8,7 @@
         private Dictionary<string, Dictionary<int, string>> Grades { get; set; }
         private double Average { get; set; }
 
-        public Student(string firstName, string lastName, string birthdate) : base(lastName)
+        public Student(string firstName, string lastName, string birthdate)
         {
             FirstName = firstName;
             LastName = lastName;
