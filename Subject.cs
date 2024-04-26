@@ -2,19 +2,30 @@
 {
     public class Subject : Campus
     {
-        public int ID { get; private set; }
-        public string Name { get; private set; }
+        private int _id { get; set; }
+        public string Name { get; set; }
+        public int ID
+        {
+            get
+            {
+                foreach (Subject subject in Subjects)
+                {
+                    while (_id == subject.ID)
+                    {
+                        Random rand = new();
+                        _id = rand.Next(100, 1000);
+                    }
+                }
+                return _id;
+            }
+            set { _id = value; }
+        }
 
-        public Subject(string name)
+        public Subject(string name) : base(name)
         {
             Random rand = new();
             Name = name;
-
-            while (!Subjects.ContainsKey(ID))
-            {
-                ID = rand.Next(100, 1000);
-                Subjects.Add(ID, Name);
-            }
+            _id = rand.Next(100, 1000);
         }
     }
 }

@@ -1,30 +1,25 @@
 ﻿namespace P1_AppConsole
 {
-    public class Campus
+    public class Campus(string name)
     {
-        public string Name { get; private set; }
-        public Dictionary<int, Student> Students { get; set; }
-        public Dictionary<int, string> Subjects { get; set; }
+        private string Name { get; set; } = name;
 
-        public Campus(string name)
-        {
-            Name = name;
-            Students = [];
-            Subjects = [];
-        }
+        protected List<Student> Students { get; set; } = [];
+        protected List<Subject> Subjects { get; set; } = [];
 
-        public void Display(Dictionary<int, Student> students)
+        /*
+        public void DisplayStudent()
         {
-            foreach (KeyValuePair<int, Student> entry in students)
-                Console.WriteLine($"#{entry.Key}\t: {entry.Value}");
+            foreach (Student student in Students)
+                Console.WriteLine($"#{student.ID}\t: {student.}");
             Console.WriteLine();
-
         }
+        */
 
-        public void Display(Dictionary<int, string> subjects)
+        public void DisplaySubjects()
         {
-            foreach (KeyValuePair<int, string> entry in subjects)
-                Console.WriteLine($"#{entry.Key}\t: {entry.Value}");
+            foreach (Subject subject in Subjects)
+                Console.WriteLine($"#{subject.ID}\t: {subject.Name}");
             Console.WriteLine();
         }
     }
