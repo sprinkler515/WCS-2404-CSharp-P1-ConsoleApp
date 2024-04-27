@@ -19,9 +19,9 @@ namespace P1_AppConsole
             }
             set { _id = value; }
         }
-        private string? FirstName { get; set; }
-        private string? LastName { get; set; }
-        private string? Birthdate { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Birthdate { get; set; }
         private List<Grade> Grades { get; set; }
         private double Average { get; set; }
 
@@ -70,7 +70,7 @@ namespace P1_AppConsole
             while (String.IsNullOrEmpty(Birthdate) || Birthdate.Length < 2)
             {
                 Console.Write("Enter birthdate: ");
-                LastName = Console.ReadLine() ?? "";
+                Birthdate = Console.ReadLine() ?? "";
                 if (String.IsNullOrEmpty(Birthdate) || Birthdate.Length < 2)
                     Console.WriteLine("Error. Enter a valid name.");
             }

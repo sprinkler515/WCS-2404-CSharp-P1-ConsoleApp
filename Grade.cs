@@ -4,13 +4,58 @@
     {
         private Subject Name { get; set; }
         private double Score { get; set; }
-        private string Eval { get; set; }
+        private string? Eval { get; set; }
 
-        public Grade(Subject name, double score, string eval)
+        public Grade()
         {
-            Name = name;
-            Score = score;
-            Eval = eval;
+            Name = new();
+            DisplaySubjects();
+        }
+
+        private void SelectSubject()
+        {
+            Console.WriteLine("Select a subject:");
+
+
+        }
+
+        /*
+        private void SelectSubject(List<string> list)
+        {
+            string select;
+            bool valid;
+
+            Console.Write("Enter your choice: ");
+            select = Console.ReadLine() ?? "Invalid input";
+            select = select.ToLower();
+            valid = int.TryParse(select, out int option);
+            = option;
+
+            if (!valid)
+                for (int i = 1; i <= Options.Count; i++)
+                {
+                    string s = Options[i - 1].ToLower();
+                    if (s.Contains(select) && select.Length >= 3)
+                        Option = i;
+                }
+            Console.WriteLine();
+        }
+        */
+
+        private new List<string> DisplaySubjects()
+        {
+            List<string> subjects = [];
+
+            for (int i = 0; i < Subjects.Count; i++)
+            {
+                string s = Subjects[i].Name ?? "";
+                if (!String.IsNullOrEmpty(s))
+                {
+                    Console.WriteLine($"{i + 1}. {s}");
+                    subjects.Add(s);
+                }
+            }
+            return subjects;
         }
 
         /*

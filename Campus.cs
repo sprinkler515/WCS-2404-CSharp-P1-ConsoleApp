@@ -2,7 +2,6 @@
 {
     public class Campus
     {
-        private string Name { get; set; }
         public List<Student> Students { get; set; }
         public List<Subject> Subjects { get; set; }
         protected int MaxSubjectsCount { get; set; }
@@ -10,40 +9,42 @@
 
         public Campus()
         {
-            Name = "Default";
             Students = [];
             Subjects = [];
             MaxSubjectsCount = 100;
             MaxStudentsCapacity = 1000;
         }
-        public Campus(string name, int subjectsCount, int studentsCapacity)
-        {
-            Name = name;
-            Students = [];
-            Subjects = [];
-            MaxSubjectsCount = studentsCapacity;
-            MaxStudentsCapacity = subjectsCount;
-        }
 
-        /*
-        public Student SearchStudent(int id)
+        public void CheckStudent()
         {
-            Student student = new();
-            bool found = false;
+            bool valid;
 
-            foreach (Student el in Students)
+            Console.Write("Enter id: ");
+            valid = int.TryParse(Console.ReadLine(), out int id);
+
+            if (!valid)
+                Console.WriteLine("Error! Enter a valid number.");
+            else
             {
-                if (id == student.ID)
-                {
-                    student = el;
-                    found = true;
-                }
+                id = SearchStudent(id);
+                if (id == -1)
+                    Console.WriteLine("Student not found.");
+                else
+                    DisplayStudent(Students[id]);
             }
-
-            if (!found) { }
-
         }
-        */
+
+        public int SearchStudent(int id)
+        {
+            int index = -1;
+
+            for (int i = 0; i < Students.Count; i++)
+                if (id == Students[i].ID)
+                    index = i;
+
+            return index;
+        }
+
         public void DisplayStudent(Student student)
         {
             int charCnt = 70;
@@ -59,11 +60,23 @@
 
             foreach (Subject subject in Subjects)
             {
-                Console.WriteLine($"Subject : {subject.Name}");
+                Console.WriteLine($"\tSubject : ");
+                Console.WriteLine($"\t\tScore : ");
+                Console.WriteLine($"\t\tEvaluation : ");
             }
 
-            for (int i = 0; i < charCnt; i++) Console.Write('-');
+            Console.WriteLine($"\tAverage : ");
 
+            for (int i = 0; i < charCnt; i++)
+                Console.Write('-');
+            Console.WriteLine();
+        }
+
+        public void DisplayStudents()
+        {
+            foreach (Student student in Students)
+                Console.WriteLine($"#{student.ID}\t: {student.LastName} {student.FirstName}");
+            Console.WriteLine();
         }
 
         public void DisplaySubjects()
