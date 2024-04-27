@@ -21,13 +21,17 @@
                 switch (Option)
                 {
                     case 1:
+                        Campus.DisplayStudents();
                         break;
                     case 2:
                         Campus.Students.Add(new Student());
                         break;
                     case 3:
+                        // Check existing student
+                        Campus.CheckStudent();
                         break;
                     case 4:
+                        // Add grade
                         break;
                     case 5:
                         Exit = true;
