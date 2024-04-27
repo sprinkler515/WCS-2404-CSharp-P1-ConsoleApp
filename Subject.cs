@@ -9,13 +9,11 @@
             get
             {
                 foreach (Subject subject in Subjects)
-                {
                     while (_id == subject.ID)
                     {
                         Random rand = new();
-                        _id = rand.Next(100, 1000);
+                        _id = rand.Next(MaxSubjectsCount / 10, MaxSubjectsCount);
                     }
-                }
                 return _id;
             }
             set { _id = value; }
@@ -24,7 +22,7 @@
         public Subject()
         {
             Random rand = new();
-            _id = rand.Next(100, 1000);
+            _id = rand.Next(MaxSubjectsCount / 10, MaxSubjectsCount);
             SetName();
         }
 

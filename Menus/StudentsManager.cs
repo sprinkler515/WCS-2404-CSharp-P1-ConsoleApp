@@ -23,6 +23,7 @@
                     case 1:
                         break;
                     case 2:
+                        Campus.Students.Add(new Student());
                         break;
                     case 3:
                         break;
@@ -40,6 +41,12 @@
 
         public new void Display()
         {
+            int len = 70;
+
+            for (int i = 0; i < len; i++)
+                Console.Write("-");
+            Console.WriteLine("\nSubjects :\n");
+
             foreach (string option in Options)
                 Console.WriteLine(option);
             Console.WriteLine();

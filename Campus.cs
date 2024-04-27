@@ -2,17 +2,69 @@
 {
     public class Campus
     {
-        public List<Student> Students { get; set; } = [];
-        public List<Subject> Subjects { get; set; } = [];
+        private string Name { get; set; }
+        public List<Student> Students { get; set; }
+        public List<Subject> Subjects { get; set; }
+        protected int MaxSubjectsCount { get; set; }
+        protected int MaxStudentsCapacity { get; set; }
+
+        public Campus()
+        {
+            Name = "Default";
+            Students = [];
+            Subjects = [];
+            MaxSubjectsCount = 100;
+            MaxStudentsCapacity = 1000;
+        }
+        public Campus(string name, int subjectsCount, int studentsCapacity)
+        {
+            Name = name;
+            Students = [];
+            Subjects = [];
+            MaxSubjectsCount = studentsCapacity;
+            MaxStudentsCapacity = subjectsCount;
+        }
 
         /*
-        public void DisplayStudent()
+        public Student SearchStudent(int id)
         {
-            foreach (Student student in Students)
-                Console.WriteLine($"#{student.ID}\t: {student.}");
-            Console.WriteLine();
+            Student student = new();
+            bool found = false;
+
+            foreach (Student el in Students)
+            {
+                if (id == student.ID)
+                {
+                    student = el;
+                    found = true;
+                }
+            }
+
+            if (!found) { }
+
         }
         */
+        public void DisplayStudent(Student student)
+        {
+            int charCnt = 70;
+
+            for (int i = 0; i < charCnt; i++) Console.Write('-');
+            Console.WriteLine("\nStudents information :\n");
+
+            Console.WriteLine($"Last name\t: {student.LastName}");
+            Console.WriteLine($"First name\t: {student.FirstName}");
+            Console.WriteLine($"Birthdate\t: {student.Birthdate}\n");
+
+            Console.WriteLine("Scores:");
+
+            foreach (Subject subject in Subjects)
+            {
+                Console.WriteLine($"Subject : {subject.Name}");
+            }
+
+            for (int i = 0; i < charCnt; i++) Console.Write('-');
+
+        }
 
         public void DisplaySubjects()
         {
