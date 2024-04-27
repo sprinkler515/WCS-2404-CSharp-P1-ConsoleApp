@@ -6,7 +6,7 @@
 
         public CampusManager()
         {
-            Campus = new();
+            Campus = new("Wild Code School", 100, 1000);
 
             Options.Add("1. Students");
             Options.Add("2. Subjects");
