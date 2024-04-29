@@ -23,7 +23,8 @@
                         Campus.DisplaySubjects();
                         break;
                     case 2:
-                        Campus.Subjects.Add(new Subject());
+                        Subject subject = new();
+                        Campus.Subjects.Add(subject.ID, subject);
                         break;
                     case 3:
                         Campus.RemoveSubject();
@@ -40,10 +41,7 @@
 
         public new void Display()
         {
-            int len = 70;
-
-            for (int i = 0; i < len; i++)
-                Console.Write("-");
+            DrawLine();
             Console.WriteLine("\nSubjects :\n");
 
             foreach (string option in Options)

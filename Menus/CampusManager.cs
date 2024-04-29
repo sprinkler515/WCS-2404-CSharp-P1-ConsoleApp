@@ -12,7 +12,7 @@
             Options.Add("2. Subjects");
             Options.Add("3. Exit");
         }
-        
+
         public void StartProgram()
         {
             Selection();
@@ -22,17 +22,16 @@
         {
             while (!Exit)
             {
+                Console.Clear();
                 Display();
                 Select();
                 switch (Option)
                 {
                     case 1:
-                        StudentsManager studentsManager = new();
-                        studentsManager.Selection();
+                        new StudentsManager().Selection();
                         break;
                     case 2:
-                        SubjectsManager subjectsManager = new();
-                        subjectsManager.Selection();
+                        new SubjectsManager().Selection();
                         break;
                     case 3:
                         Exit = true;
@@ -40,6 +39,7 @@
                     default:
                         Console.WriteLine(
                             "Error! Please select a valid option.\n");
+                        Console.ReadLine();
                         break;
                 }
             }
@@ -47,14 +47,20 @@
 
         public void Display()
         {
-            int len = 70;
-            for (int i = 0; i < len; i++)
-                Console.Write("-");
+            DrawLine();
             Console.WriteLine($"\n{DateTime.Now} - Welcome\n");
 
             foreach (string option in Options)
                 Console.WriteLine(option);
             Console.WriteLine();
         }
+
+        public static void DrawLine()
+        {
+            int len = 70;
+            for (int i = 0; i < len; i++)
+                Console.Write("-");
+        }
+
     }
 }

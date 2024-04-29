@@ -28,5 +28,12 @@
         }
 
         protected abstract void Selection();
+
+        public static void DrawLine()
+        {
+            int len = 70;
+            for (int i = 0; i < len; i++)
+                Console.Write("-");
+        }
     }
 }
