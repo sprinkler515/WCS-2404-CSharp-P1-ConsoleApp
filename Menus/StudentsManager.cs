@@ -24,14 +24,13 @@
                         Campus.DisplayStudents();
                         break;
                     case 2:
-                        Student student = new();
-                        Campus.Students.Add(student.ID, student);
+                        Campus.CreateStudent();
                         break;
                     case 3:
-                        Campus.CheckStudent();
+                        Campus.ConsultStudent();
                         break;
                     case 4:
-                        // Add grade
+                        Campus.AddGrade();
                         break;
                     case 5:
                         Exit = true;

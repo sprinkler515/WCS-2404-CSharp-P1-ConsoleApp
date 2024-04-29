@@ -1,78 +1,40 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections.Immutable;
+using System.Security.Cryptography.X509Certificates;
 
 namespace P1_AppConsole
 {
-    public class Student : Campus
+    public class Student
     {
-        private int _id;
-        public int ID
-        {
-            get
-            {
-                while (Students.ContainsKey(_id))
-                {
-                    Random rand = new();
-                    _id = rand.Next(StudentsCapacity);
-                }
-                return _id;
-            }
-        }
+        public int ID { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Birthdate { get; set; }
-        private List<Grade> Grades { get; set; }
+        public List<Grade> Grades { get; set; }
         private double Average { get; set; }
 
         public Student()
         {
-            Random rand = new();
-            _id = rand.Next(StudentsCapacity);
-            SetFirstName();
-            SetLastName();
-            SetBirthdate();
             Grades = [];
         }
 
-        private void SetFirstName()
+        public void DisplayStudent()
         {
-            FirstName = "";
+            Console.WriteLine("\nStudents information :\n");
 
-            while (String.IsNullOrEmpty(FirstName) || FirstName.Length < 2)
+            Console.WriteLine($"Last name\t: {LastName}");
+            Console.WriteLine($"First name\t: {FirstName}");
+            Console.WriteLine($"Birthdate\t: {Birthdate}\n");
+
+            Console.WriteLine("Scores:");
+
+            foreach (Grade grade in Grades)
             {
-                Console.Write("Enter first name: ");
-                FirstName = Console.ReadLine() ?? "";
-                if (String.IsNullOrEmpty(FirstName) || FirstName.Length < 2)
-                    Console.WriteLine("Error. Enter a valid name.");
+                Console.WriteLine($"\tSubject : {grade.SubjectName}");
+                Console.WriteLine($"\t\tScore : {grade.Score}");
+                Console.WriteLine($"\t\tEvaluation : {grade.Evaluation}");
             }
-            Console.WriteLine();
-        }
 
-        private void SetLastName()
-        {
-            LastName = "";
-
-            while (String.IsNullOrEmpty(LastName) || LastName.Length < 2)
-            {
-                Console.Write("Enter last name: ");
-                LastName = Console.ReadLine() ?? "";
-                if (String.IsNullOrEmpty(LastName) || LastName.Length < 2)
-                    Console.WriteLine("Error. Enter a valid name.");
-            }
-            Console.WriteLine();
-        }
-
-        private void SetBirthdate()
-        {
-            Birthdate = "";
-
-            while (String.IsNullOrEmpty(Birthdate) || Birthdate.Length < 2)
-            {
-                Console.Write("Enter birthdate: ");
-                Birthdate = Console.ReadLine() ?? "";
-                if (String.IsNullOrEmpty(Birthdate) || Birthdate.Length < 2)
-                    Console.WriteLine("Error. Enter a valid name.");
-            }
-            Console.WriteLine();
+            Console.WriteLine($"\tAverage : ");
         }
     }
 }
