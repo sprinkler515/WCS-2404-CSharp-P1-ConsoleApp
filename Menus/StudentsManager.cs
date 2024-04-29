@@ -24,10 +24,10 @@
                         Campus.DisplayStudents();
                         break;
                     case 2:
-                        Campus.Students.Add(new Student());
+                        Student student = new();
+                        Campus.Students.Add(student.ID, student);
                         break;
                     case 3:
-                        // Check existing student
                         Campus.CheckStudent();
                         break;
                     case 4:
@@ -45,10 +45,7 @@
 
         public new void Display()
         {
-            int len = 70;
-
-            for (int i = 0; i < len; i++)
-                Console.Write("-");
+            DrawLine();
             Console.WriteLine("\nSubjects :\n");
 
             foreach (string option in Options)

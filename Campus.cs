@@ -1,55 +1,37 @@
-﻿namespace P1_AppConsole
+﻿using P1_AppConsole.Menus;
+
+namespace P1_AppConsole
 {
     public class Campus
     {
-        public List<Student> Students { get; set; }
-        public List<Subject> Subjects { get; set; }
-        protected int MaxSubjectsCount { get; set; }
-        protected int MaxStudentsCapacity { get; set; }
+        public Dictionary<int, Student> Students { get; set; }
+        public Dictionary<int, Subject> Subjects { get; set; }
+        protected int NbSubjects { get; set; }
+        protected int StudentsCapacity { get; set; }
 
         public Campus()
         {
             Students = [];
             Subjects = [];
-            MaxSubjectsCount = 100;
-            MaxStudentsCapacity = 1000;
+            NbSubjects = 100;
+            StudentsCapacity = 1000;
         }
 
         public void CheckStudent()
         {
-            bool valid;
-
             Console.Write("Enter id: ");
-            valid = int.TryParse(Console.ReadLine(), out int id);
-
-            if (!valid)
-                Console.WriteLine("Error! Enter a valid number.");
-            else
-            {
-                id = SearchStudent(id);
-                if (id == -1)
-                    Console.WriteLine("Student not found.");
+            if (int.TryParse(Console.ReadLine(), out int id))
+                if (Students.TryGetValue(id, out Student? value))
+                    DisplayStudent(value);
                 else
-                    DisplayStudent(Students[id]);
-            }
-        }
-
-        public int SearchStudent(int id)
-        {
-            int index = -1;
-
-            for (int i = 0; i < Students.Count; i++)
-                if (id == Students[i].ID)
-                    index = i;
-
-            return index;
+                    Console.WriteLine("Student not found.");
+            else
+                Console.WriteLine("Error! Enter a valid number.");
         }
 
         public void DisplayStudent(Student student)
         {
-            int charCnt = 70;
-
-            for (int i = 0; i < charCnt; i++) Console.Write('-');
+            CampusManager.DrawLine();
             Console.WriteLine("\nStudents information :\n");
 
             Console.WriteLine($"Last name\t: {student.LastName}");
@@ -58,7 +40,7 @@
 
             Console.WriteLine("Scores:");
 
-            foreach (Subject subject in Subjects)
+            foreach (KeyValuePair<int, Subject> subject in Subjects)
             {
                 Console.WriteLine($"\tSubject : ");
                 Console.WriteLine($"\t\tScore : ");
@@ -66,49 +48,31 @@
             }
 
             Console.WriteLine($"\tAverage : ");
-
-            for (int i = 0; i < charCnt; i++)
-                Console.Write('-');
-            Console.WriteLine();
+            CampusManager.DrawLine();
         }
 
         public void DisplayStudents()
         {
-            foreach (Student student in Students)
-                Console.WriteLine($"#{student.ID}\t: {student.LastName} {student.FirstName}");
+            foreach (KeyValuePair<int, Student> student in Students)
+                Console.WriteLine($"#{student.Key}\t: {student.Value.LastName} {student.Value.FirstName}");
             Console.WriteLine();
         }
 
         public void DisplaySubjects()
         {
-            foreach (Subject subject in Subjects)
-                Console.WriteLine($"#{subject.ID}\t: {subject.Name}");
+            foreach (KeyValuePair<int, Subject> subject in Subjects)
+                Console.WriteLine($"#{subject.Key}\t: {subject.Value.Name}");
             Console.WriteLine();
         }
 
         public void RemoveSubject()
         {
-            int id = 0;
-            bool valid = false;
-
-            while (!valid)
-            {
-                Console.Write("Enter ID subject for removal: ");
-                valid = int.TryParse(Console.ReadLine(), out id);
-                if (!valid || id < 100 || id > 999)
-                    Console.WriteLine("Error! Please enter a valid number");
-            }
-
-            foreach (Subject subject in Subjects)
-            {
-                if (id == subject.ID)
-                {
-                    Subjects.Remove(subject);
-                    break;
-                }
-                if (subject == Subjects.Last())
+            Console.Write("Enter ID subject for removal: ");
+            if (int.TryParse(Console.ReadLine(), out int id))
+                if (Subjects.Remove(id))
+                    Console.WriteLine("Success");
+                else
                     Console.WriteLine($"No subjects with ID#{id} has been found.");
-            }
         }
     }
 }

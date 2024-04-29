@@ -9,15 +9,13 @@ namespace P1_AppConsole
         {
             get
             {
-                foreach (Student student in Students)
-                    while (_id == student.ID)
-                    {
-                        Random rand = new();
-                        _id = rand.Next(0, MaxStudentsCapacity);
-                    }
+                while (Students.ContainsKey(_id))
+                {
+                    Random rand = new();
+                    _id = rand.Next(StudentsCapacity);
+                }
                 return _id;
             }
-            set { _id = value; }
         }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -28,7 +26,7 @@ namespace P1_AppConsole
         public Student()
         {
             Random rand = new();
-            _id = rand.Next(MaxStudentsCapacity / 10, MaxStudentsCapacity);
+            _id = rand.Next(StudentsCapacity);
             SetFirstName();
             SetLastName();
             SetBirthdate();
@@ -76,29 +74,5 @@ namespace P1_AppConsole
             }
             Console.WriteLine();
         }
-        public void Display()
-        {
-            int charCnt = 70;
-
-            for (int i = 0; i < charCnt; i++) Console.Write('-');
-            Console.WriteLine("\nStudents information :\n");
-
-            Console.WriteLine($"Last name\t: {LastName}");
-            Console.WriteLine($"First name\t: {FirstName}");
-            Console.WriteLine($"Birthdate\t: {Birthdate}\n");
-
-            Console.WriteLine("Scores:");
-
-            /*
-            foreach (KeyValuePair<int, string> grade in Grades)
-            {
-                Console.WriteLine($"Subject : ");
-                Console.WriteLine($"\tScore : ");
-            }
-            */
-
-            for (int i = 0; i < charCnt; i++) Console.Write('-');
-        }
-
     }
 }
