@@ -31,8 +31,9 @@ namespace P1_AppConsole
         public void CreateStudent()
         {
             Student student = new();
+
             // Unique ID
-            while (Students.ContainsKey(student.ID))
+            while (student.ID == default || Students.ContainsKey(student.ID))
             {
                 Random rand = new();
                 student.ID = rand.Next(StudentsCapacity);
@@ -57,9 +58,9 @@ namespace P1_AppConsole
         // 3. Consult Student
         public void ConsultStudent()
         {
-        // - Check Student
+            // - Check Student
             int id = SearchStudentByID();
-        // - Display student
+            // - Display student
             Students[id].DisplayStudent();
         }
 
@@ -71,6 +72,7 @@ namespace P1_AppConsole
 
             // Search student ID
             studentID = SearchStudentByID();
+            Console.WriteLine(studentID);
 
             // Search subject ID
             subjectID = SearchSubjectByID();
@@ -97,6 +99,46 @@ namespace P1_AppConsole
             return default;
         }
 
+
+
+        // Subjects
+        // 1. List subjects
+        public void DisplaySubjects()
+        {
+            foreach (KeyValuePair<int, Subject> subject in Subjects)
+                Console.WriteLine($"#{subject.Key}\t: {subject.Value.Name}");
+            Console.WriteLine();
+        }
+
+        // 2. Create new subject
+        public void CreateSubject()
+        {
+            Subject subject = new();
+
+            // Unique ID
+            while (subject.ID == default || Subjects.ContainsKey(subject.ID))
+            {
+                Random rand = new();
+                subject.ID = rand.Next(StudentsCapacity);
+            }
+
+            // Name
+            Console.Write("Enter subject's name: ");
+            subject.Name = SetName();
+
+            // Add subject to Subjects
+            Subjects.Add(subject.ID, subject);
+        }
+
+        // 3. Remove subject
+        public void RemoveSubject()
+        {
+            // Search subject by ID
+            int id = SearchSubjectByID();
+            if (!Subjects.Remove(id))
+                Console.WriteLine($"Error! Subject #{id}'s not found.");
+        }
+
         public int SearchSubjectByID()
         {
             Console.Write("Enter subject ID: ");
@@ -118,25 +160,5 @@ namespace P1_AppConsole
             }
             return name;
         }
-
-        public void DisplaySubjects()
-        {
-            foreach (KeyValuePair<int, Subject> subject in Subjects)
-                Console.WriteLine($"#{subject.Key}\t: {subject.Value.Name}");
-            Console.WriteLine();
-        }
-
-        public void RemoveSubject()
-        {
-            Console.Write("Enter ID subject for removal: ");
-            if (int.TryParse(Console.ReadLine(), out int id))
-                if (Subjects.Remove(id))
-                {
-                    Console.WriteLine("Success");
-                }
-                else
-                    Console.WriteLine($"No subjects with ID#{id} has been found.");
-        }
     }
 }
-
