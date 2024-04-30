@@ -37,8 +37,8 @@
                         Exit = true;
                         break;
                     default:
-                        Console.WriteLine(
-                            "Error! Please select a valid option.\n");
+                        Console.WriteLine("Error! Please select a valid option.\n");
+                        Console.Write("Press any key to continue...");
                         Console.ReadLine();
                         break;
                 }
@@ -61,6 +61,5 @@
             for (int i = 0; i < len; i++)
                 Console.Write("-");
         }
-
     }
 }
