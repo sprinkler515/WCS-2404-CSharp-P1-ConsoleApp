@@ -17,6 +17,11 @@
         protected void OptionError()
         {
             Console.WriteLine("Error! Please select a valid option.\n");
+            DisplayControl();
+        }
+
+        protected void DisplayControl()
+        {
             Console.Write("Press any key to continue...");
             Console.ReadLine();
         }

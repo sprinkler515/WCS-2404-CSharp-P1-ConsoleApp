@@ -21,12 +21,15 @@
                 {
                     case 1:
                         Campus.DisplaySubjects();
+                        DisplayControl();
                         break;
                     case 2:
                         Campus.CreateSubject();
+                        DisplayControl();
                         break;
                     case 3:
                         Campus.RemoveSubject();
+                        DisplayControl();
                         break;
                     case 4:
                         Exit = true;

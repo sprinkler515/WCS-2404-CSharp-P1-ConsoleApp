@@ -16,21 +16,26 @@
         {
             while (!Exit)
             {
+                Console.Clear();
                 Display();
                 Select();
                 switch (Option)
                 {
                     case 1:
                         Campus.DisplayStudents();
+                        DisplayControl();
                         break;
                     case 2:
                         Campus.CreateStudent();
+                        DisplayControl();
                         break;
                     case 3:
                         Campus.ConsultStudent();
+                        DisplayControl();
                         break;
                     case 4:
                         Campus.AddGrade();
+                        DisplayControl();
                         break;
                     case 5:
                         Exit = true;
