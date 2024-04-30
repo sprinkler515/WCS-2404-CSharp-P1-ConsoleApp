@@ -36,7 +36,7 @@
                         Exit = true;
                         break;
                     default:
-                        Console.WriteLine("Invalid option.");
+                        OptionError();
                         break;
                 }
             }

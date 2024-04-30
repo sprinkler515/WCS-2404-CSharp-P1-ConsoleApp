@@ -32,7 +32,7 @@
                         Exit = true;
                         break;
                     default:
-                        Console.WriteLine("Error. Please select a valid option.");
+                        OptionError();
                         break;
                 }
             }

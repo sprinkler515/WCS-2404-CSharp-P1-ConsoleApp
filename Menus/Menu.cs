@@ -8,23 +8,24 @@
 
         protected void Select()
         {
-            string select;
-            bool valid;
-
             Console.Write("Enter your choice: ");
-            select = Console.ReadLine() ?? "Invalid input";
-            select = select.ToLower();
-            valid = int.TryParse(select, out int option);
-            Option = option;
-
-            if (!valid)
-                for (int i = 1; i <= Options.Count; i++)
-                {
-                    string s = Options[i - 1].ToLower();
-                    if (s.Contains(select) && select.Length >= 3)
-                        Option = i;
-                }
+            if (int.TryParse(Console.ReadLine(), out int option))
+                Option = option;
             Console.WriteLine();
+        }
+
+        protected void OptionError()
+        {
+            Console.WriteLine("Error! Please select a valid option.\n");
+            Console.Write("Press any key to continue...");
+            Console.ReadLine();
+        }
+
+        public static void DrawLine()
+        {
+            int len = 70;
+            for (int i = 0; i < len; i++)
+                Console.Write("-");
         }
 
         protected abstract void Selection();

@@ -37,9 +37,7 @@
                         Exit = true;
                         break;
                     default:
-                        Console.WriteLine("Error! Please select a valid option.\n");
-                        Console.Write("Press any key to continue...");
-                        Console.ReadLine();
+                        OptionError();
                         break;
                 }
             }
@@ -55,11 +53,5 @@
             Console.WriteLine();
         }
 
-        public static void DrawLine()
-        {
-            int len = 70;
-            for (int i = 0; i < len; i++)
-                Console.Write("-");
-        }
     }
 }
