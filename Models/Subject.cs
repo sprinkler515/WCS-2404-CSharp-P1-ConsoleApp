@@ -1,4 +1,4 @@
-﻿namespace P1_AppConsole
+﻿namespace P1_AppConsole.Models
 {
     public class Subject
     {

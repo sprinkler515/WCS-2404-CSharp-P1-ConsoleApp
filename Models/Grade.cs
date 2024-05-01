@@ -1,10 +1,12 @@
-﻿namespace P1_AppConsole
+﻿using P1_AppConsole.Models;
+
+namespace P1_AppConsole
 {
     public class Grade
     {
         private double _score;
         private string? _eval;
-        public Subject? Name { get; set; }
+        public Subject? SubjectName { get; set; }
         public double Score { get => _score; set => _score = value; }
         public string? Evaluation { get => _eval; set => _eval = value; }
 
