@@ -1,6 +1,9 @@
-﻿namespace P1_AppConsole.Models
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
+
+namespace P1_AppConsole.Models
 {
-    public class Campus
+    public partial class Campus
     {
         public Dictionary<int, Student> Students { get; set; }
         public Dictionary<int, Subject> Subjects { get; set; }
@@ -166,14 +169,18 @@
         // Static methods
         private static string? SetName()
         {
-            string name;
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            TextInfo textInfo = cultureInfo.TextInfo;
+            string name = Console.ReadLine() ?? "";
 
-            name = Console.ReadLine() ?? "";
             if (string.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Error! Enter a valid name.\n");
                 return null;
             }
+            name = name.ToLower();
+            name = textInfo.ToTitleCase(name).ToString();
+
             return name;
         }
 
