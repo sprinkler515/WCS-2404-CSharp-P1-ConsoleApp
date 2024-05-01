@@ -2,37 +2,17 @@
 {
     public abstract class Menu
     {
-        protected List<string> Options { get; set; } = [];
-        protected bool Exit { get; set; }
-        protected int Option { get; set; }
+        public DisplayService DisplayService { get; set; }
+        public MenuSelection MenuSelection { get; set; }
+        public List<string> Options { get; set; }
+        public int Option { get; set; }
+        public bool Exit { get; set; }
 
-        protected void Select()
+        protected Menu()
         {
-            Console.Write("Enter your choice: ");
-            if (int.TryParse(Console.ReadLine(), out int option))
-                Option = option;
-            Console.WriteLine();
+            DisplayService = new();
+            MenuSelection = new();
+            Options = [];
         }
-
-        protected void OptionError()
-        {
-            Console.WriteLine("Error! Please select a valid option.\n");
-            DisplayControl();
-        }
-
-        protected void DisplayControl()
-        {
-            Console.Write("Press any key to continue...");
-            Console.ReadLine();
-        }
-
-        public static void DrawLine()
-        {
-            int len = 70;
-            for (int i = 0; i < len; i++)
-                Console.Write("-");
-        }
-
-        protected abstract void Selection();
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace P1_AppConsole
+﻿using P1_AppConsole.Models;
+
+namespace P1_AppConsole
 {
     public class Grade
     {

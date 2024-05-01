@@ -1,12 +1,18 @@
-﻿namespace P1_AppConsole.Menus
+﻿using P1_AppConsole.Models;
+
+namespace P1_AppConsole.Menus
 {
-    public class CampusManager : Menu, IDisplay
+    public class CampusManager : Menu
     {
-        protected Campus Campus { get; set; }
+        public Campus Campus { get; set; }
+        public StudentsManager StudentsManager { get; set; }
+        public SubjectsManager SubjectsManager { get; set; }
 
         public CampusManager()
         {
             Campus = new();
+            StudentsManager = new();
+            SubjectsManager = new();
 
             Options.Add("1. Students");
             Options.Add("2. Subjects");
@@ -15,43 +21,7 @@
 
         public void StartProgram()
         {
-            Selection();
+            MenuSelection.Selection(this, Campus);
         }
-
-        protected override void Selection()
-        {
-            while (!Exit)
-            {
-                Console.Clear();
-                Display();
-                Select();
-                switch (Option)
-                {
-                    case 1:
-                        new StudentsManager().Selection();
-                        break;
-                    case 2:
-                        new SubjectsManager().Selection();
-                        break;
-                    case 3:
-                        Exit = true;
-                        break;
-                    default:
-                        OptionError();
-                        break;
-                }
-            }
-        }
-
-        public void Display()
-        {
-            DrawLine();
-            Console.WriteLine($"\n{DateTime.Now} - Welcome\n");
-
-            foreach (string option in Options)
-                Console.WriteLine(option);
-            Console.WriteLine();
-        }
-
     }
 }
