@@ -16,6 +16,27 @@ namespace P1_AppConsole.Models
         {
             Grades = [];
         }
+        public void Display()
+        {
+            Console.WriteLine("\nStudents information :\n");
+            Informations();
+            Console.WriteLine("Scores:");
 
+            foreach (Grade grade in Grades)
+            {
+                Console.WriteLine($"\tSubject : {grade.SubjectName}");
+                Console.WriteLine($"\t\tScore : {grade.Score}");
+                Console.WriteLine($"\t\tEvaluation : {grade.Evaluation}");
+            }
+
+            Console.WriteLine($"\tAverage : ");
+        }
+
+        public void Informations()
+        {
+            Console.WriteLine($"Last name\t: {LastName}");
+            Console.WriteLine($"First name\t: {FirstName}");
+            Console.WriteLine($"Birthdate\t: {Birthdate}\n");
+        }
     }
 }
