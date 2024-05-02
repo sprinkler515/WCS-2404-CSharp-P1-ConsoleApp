@@ -2,7 +2,7 @@
 
 namespace P1_AppConsole.Menus
 {
-    public class CampusManager : Menu, IMenu
+    public class CampusManager : Menu
     {
         public Campus Campus { get; set; }
         public StudentsManager StudentsManager { get; set; }
@@ -21,42 +21,8 @@ namespace P1_AppConsole.Menus
 
         public void StartProgram()
         {
-            Selection();
-        }
-
-        public void Selection()
-        {
-            while (!Exit)
-            {
-                Console.Clear();
-                Display();
-                Select();
-                switch (Option)
-                {
-                    case 1:
-                        StudentsManager.Selection(Campus);
-                        break;
-                    case 2:
-                        SubjectsManager.Selection(Campus);
-                        break;
-                    case 3:
-                        Exit = true;
-                        break;
-                    default:
-                        OptionError();
-                        break;
-                }
-            }
-        }
-
-        public void Display()
-        {
-            DrawLine();
-            Console.WriteLine($"\n{DateTime.Now} - Welcome\n");
-
-            foreach (string option in Options)
-                Console.WriteLine(option);
-            Console.WriteLine();
+            // using FileStream log = File.OpenWrite("log.txt");
+            SelectionService.Selection(this, Campus);
         }
     }
 }
