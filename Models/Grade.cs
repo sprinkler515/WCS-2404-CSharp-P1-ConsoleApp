@@ -15,6 +15,7 @@ namespace P1_AppConsole
             Console.Write("Add score (~/20): ");
             if (double.TryParse(Console.ReadLine(), out _score))
             {
+                _score = Math.Round(_score * 2, MidpointRounding.AwayFromZero) / 2;
                 if (_score < 0 || _score > 20)
                     Console.WriteLine("Error! Enter a score between 0 and 20.");
             }

@@ -1,4 +1,6 @@
 ﻿using P1_AppConsole.Models;
+using Newtonsoft.Json;
+using System.Text.Json.Nodes;
 
 namespace P1_AppConsole.Menus
 {
@@ -10,7 +12,13 @@ namespace P1_AppConsole.Menus
 
         public CampusManager()
         {
-            Campus = new();
+
+            if (File.Exists("db.json"))
+            {
+                string json = File.ReadAllText("db.json");
+                Campus = JsonConvert.DeserializeObject<Campus>(json) ?? new();
+            }
+            else Campus = new();
             StudentsManager = new();
             SubjectsManager = new();
 

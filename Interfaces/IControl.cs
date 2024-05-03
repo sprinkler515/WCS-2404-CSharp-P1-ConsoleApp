@@ -4,7 +4,10 @@ namespace P1_AppConsole.Interfaces
 {
     public interface IControl
     {
-        bool Save(Campus campus);
         bool Continue();
+        bool Save(Campus campus);
+        void SaveJson(Campus campus);
+        void SaveLog(string entry);
+
     }
 }
