@@ -21,7 +21,5 @@ namespace P1_AppConsole.Features
                     return id;
             return default;
         }
-
-
     }
 }

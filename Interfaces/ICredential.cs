@@ -5,6 +5,6 @@ namespace P1_AppConsole.Interfaces
     public interface ICredential
     {
         void SetID(Campus campus);
-        string? SetName();
+        string? SetName(Campus campus);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using P1_AppConsole.Models;
 using P1_AppConsole.Interfaces;
-using System.Globalization;
+using Newtonsoft.Json;
 
 namespace P1_AppConsole.Features
 {
@@ -15,7 +15,6 @@ namespace P1_AppConsole.Features
             {
                 Student student = new();
 
-                confirm = false;
                 student.SetID(campus);
 
                 display.Header();
@@ -23,9 +22,10 @@ namespace P1_AppConsole.Features
 
                 // Set firstname
                 Console.Write("\nEnter firstname: ");
-                student.FirstName = student.SetName();
+                student.FirstName = student.SetName(campus);
                 if (student.FirstName == null)
                 {
+                    Console.Write("Register another student (Yes to confirm) : ");
                     if (Continue()) continue;
                     else
                     {
@@ -33,10 +33,11 @@ namespace P1_AppConsole.Features
                         return;
                     }
                 }
-                Console.Write("\nEnter lastname: ");
-                student.LastName = student.SetName();
+                Console.Write("Enter lastname: ");
+                student.LastName = student.SetName(campus);
                 if (student.LastName == null)
                 {
+                    Console.Write("Register another student (Yes to confirm) : ");
                     if (Continue()) continue;
                     else
                     {
@@ -45,10 +46,11 @@ namespace P1_AppConsole.Features
                     }
                 }
                 //  Set birthdate
-                Console.Write("\nEnter birthdate (MM-DD-YYYY): ");
-                student.Birthdate = student.SetBirthdate();
+                Console.Write("Enter birthdate (MM-DD-YYYY): ");
+                student.Birthdate = student.SetBirthdate(campus);
                 if (student.Birthdate == null)
                 {
+                    Console.Write("Register another student (Yes to confirm) : ");
                     if (Continue()) continue;
                     else
                     {
@@ -63,8 +65,12 @@ namespace P1_AppConsole.Features
 
                 // Control
                 if (Save(campus))
+                {
                     campus.Students.Add(student.ID, student);
-                Console.Write("Register another student (\"Yes\" to confirm) : ");
+                    SaveJson(campus);
+                    SaveLog($"Add new student {student.FirstName} {student.LastName}");
+                }
+                Console.Write("Register another student (Yes to confirm) : ");
                 if (Continue()) continue;
                 confirm = true;
             }
@@ -74,14 +80,26 @@ namespace P1_AppConsole.Features
         public void NewSubject(Campus campus)
         {
             DisplayFeature display = campus.Management.DisplayFeature;
-            Subject subject = new();
+            bool confirm = false;
 
-            subject.SetID(campus);
-            display.Header();
-            Console.WriteLine("New Subject\n");
-            Console.Write("Enter subject's name: ");
-            subject.Name = subject.SetName();
-            campus.Subjects.Add(subject.ID, subject);
+            while (!confirm)
+            {
+                Subject subject = new();
+
+                display.Display(campus.Subjects);
+                subject.SetID(campus);
+                Console.Write("New subject : ");
+                subject.Name = subject.SetName(campus);
+                if (Save(campus))
+                {
+                    campus.Subjects.Add(subject.ID, subject);
+                    SaveJson(campus);
+                    SaveLog($"Add new subject : {subject.Name}");
+                }
+                Console.Write("Register another subject (Yes to confirm) : ");
+                if (Continue()) continue;
+                confirm = true;
+            }
             display.Footer();
         }
 
@@ -149,6 +167,18 @@ namespace P1_AppConsole.Features
             if (input == "y" || input == "ye" || input == "yes")
                 return true;
             return false;
+        }
+
+        public void SaveJson(Campus campus)
+        {
+            string json = JsonConvert.SerializeObject(campus);
+            File.WriteAllText("db.json", json);
+        }
+
+        public void SaveLog(string entry)
+        {
+            string log = $"{DateTime.Now} {entry}\n";
+            File.AppendAllText("log.txt", log);
         }
     }
 }

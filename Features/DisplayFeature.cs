@@ -36,7 +36,7 @@ namespace P1_AppConsole.Features
             Console.WriteLine("List of subjects :\n");
             foreach (KeyValuePair<int, Subject> subject in subjects)
                 Console.WriteLine($"#{subject.Key}\t: {subject.Value.Name}");
-            Console.WriteLine();
+            Footer();
         }
 
         public void Check(Campus campus)
