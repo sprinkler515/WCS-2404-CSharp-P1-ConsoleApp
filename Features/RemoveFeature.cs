@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace P1_AppConsole.Features
 {
-    public class RemoveFeature : IControl
+    public class RemoveFeature : IControl, IDatabase, ILog
     {
         public void RemoveSubject(Campus campus)
         {
@@ -21,7 +21,24 @@ namespace P1_AppConsole.Features
                 if (campus.Subjects.TryGetValue(id, out Subject? subject))
                 {
                     Console.Write($"Delete subject : #{id} {subject.Name}\n");
-                    if (Save(campus)) campus.Subjects.Remove(id);
+                    if (Save(campus))
+                    {
+                        campus.Subjects.Remove(id);
+                        SaveLog($"Remove subject #{id} {subject.Name}");
+                        /*
+                        foreach (KeyValuePair<int, Student> student in campus.Students)
+                        {
+                            foreach (Grade grade in student.Value.Grades)
+                            {
+                                if (grade.SubjectName == subject)
+                                {
+                                    student.Value.Grades.Remove(grade);
+                                    SaveJson(campus);
+                                    break;
+                                }
+                            }
+                        }*/
+                    }
                 }
                 else
                     Console.WriteLine($"Error! Subject's doesn't exist.");
@@ -69,13 +86,13 @@ namespace P1_AppConsole.Features
         public void SaveJson(Campus campus)
         {
             string json = JsonConvert.SerializeObject(campus);
-            File.WriteAllText("db.json", json);
+            File.WriteAllText("campus.json", json);
         }
 
         public void SaveLog(string entry)
         {
-            string log = $"{DateTime.Now} {entry}";
-            File.AppendAllText("log.txt", log);
+            string log = $"{DateTime.Now} - {entry}\n";
+            File.AppendAllText("campus.txt", log);
         }
     }
 }

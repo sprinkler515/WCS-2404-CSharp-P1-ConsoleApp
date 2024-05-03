@@ -13,9 +13,9 @@ namespace P1_AppConsole.Menus
         public CampusManager()
         {
 
-            if (File.Exists("db.json"))
+            if (File.Exists("campus.json"))
             {
-                string json = File.ReadAllText("db.json");
+                string json = File.ReadAllText("campus.json");
                 Campus = JsonConvert.DeserializeObject<Campus>(json) ?? new();
             }
             else Campus = new();
@@ -29,7 +29,6 @@ namespace P1_AppConsole.Menus
 
         public void StartProgram()
         {
-            // using FileStream log = File.OpenWrite("log.txt");
             SelectionService.Selection(this, Campus);
         }
     }

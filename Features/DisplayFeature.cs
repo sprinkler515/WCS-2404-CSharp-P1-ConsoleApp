@@ -3,22 +3,26 @@ using P1_AppConsole.Models;
 
 namespace P1_AppConsole.Features
 {
-    public class DisplayFeature : IDisplay
+    public class DisplayFeature : IDisplay, ILog
     {
         public void Display(Student student)
         {
+            double average;
+
             Console.WriteLine("\nStudents information :\n");
             StudentCard(student);
-            Console.WriteLine("Scores:");
+            Console.WriteLine("\nScores:\n");
 
             foreach (Grade grade in student.Grades)
             {
                 if (grade.SubjectName is not null)
                     Console.WriteLine($"\tSubject : {grade.SubjectName.Name}");
-                Console.WriteLine($"\t\tScore : {grade.Score}/20");
-                Console.WriteLine($"\t\tEvaluation : {grade.Evaluation}");
+                Console.WriteLine($"\t{String.Empty,5}Score : {grade.Score}/20");
+                Console.WriteLine($"\t{String.Empty,5}Evaluation : {grade.Evaluation}\n");
             }
-            Console.WriteLine($"\tAverage : {student.Average}");
+            average = Math.Round(student.CalcAverage() * 2, MidpointRounding.AwayFromZero) / 2;
+            Console.WriteLine($"\tAverage : {average}");
+            SaveLog($"View student informations : #{student.ID} {student.FirstName} {student.LastName}");
         }
 
         public void Display(SortedDictionary<int, Student> students)
@@ -26,7 +30,7 @@ namespace P1_AppConsole.Features
             Header();
             Console.WriteLine("List of students :\n");
             foreach (KeyValuePair<int, Student> student in students)
-                Console.WriteLine($"#{student.Key}\t: {student.Value.LastName} {student.Value.FirstName}");
+                Console.WriteLine($"#{student.Key}\t: {student.Value.FirstName} {student.Value.LastName}");
             Footer();
         }
 
@@ -42,6 +46,7 @@ namespace P1_AppConsole.Features
         public void Check(Campus campus)
         {
             SearchFeature search = campus.Management.SearchFeature;
+            Student student;
 
             Display(campus.Students);
             int id = search.SearchID(campus.Students);
@@ -51,10 +56,11 @@ namespace P1_AppConsole.Features
                 Footer();
                 return;
             }
-            // - Display student
+            student = campus.Students[id];
             Header();
-            Display(campus.Students[id]);
+            Display(student);
             Footer();
+            SaveLog($"View student : #{id} {student.FirstName} {student.LastName}");
         }
 
         public void StudentCard(Student student)
@@ -90,6 +96,12 @@ namespace P1_AppConsole.Features
             int len = 70;
             for (int i = 0; i < len; i++)
                 Console.Write("-");
+        }
+
+        public void SaveLog(string entry)
+        {
+            string log = $"{DateTime.Now} - {entry}\n";
+            File.AppendAllText("campus.txt", log);
         }
     }
 }

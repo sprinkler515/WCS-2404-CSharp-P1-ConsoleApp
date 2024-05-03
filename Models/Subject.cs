@@ -20,7 +20,6 @@ namespace P1_AppConsole.Models
 
         public string? SetName(Campus campus)
         {
-            DisplayFeature display = campus.Management.DisplayFeature;
             CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
             TextInfo textInfo = cultureInfo.TextInfo;
             string name = Console.ReadLine() ?? "";

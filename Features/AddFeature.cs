@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace P1_AppConsole.Features
 {
-    public class AddFeature : IControl
+    public class AddFeature : IControl, IDatabase, ILog
     {
         public void NewStudent(Campus campus)
         {
@@ -68,7 +68,7 @@ namespace P1_AppConsole.Features
                 {
                     campus.Students.Add(student.ID, student);
                     SaveJson(campus);
-                    SaveLog($"Add new student {student.FirstName} {student.LastName}");
+                    SaveLog($"Add new student : {student.FirstName} {student.LastName}");
                 }
                 Console.Write("Register another student (Yes to confirm) : ");
                 if (Continue()) continue;
@@ -90,6 +90,15 @@ namespace P1_AppConsole.Features
                 subject.SetID(campus);
                 Console.Write("New subject : ");
                 subject.Name = subject.SetName(campus);
+                foreach (KeyValuePair<int, Subject> el in campus.Subjects)
+                {
+                    if (el.Value.Name == subject.Name)
+                    {
+                        Console.WriteLine("Error! Subject's name already taken.");
+                        display.Footer();
+                        return;
+                    }
+                }
                 if (Save(campus))
                 {
                     campus.Subjects.Add(subject.ID, subject);
@@ -109,6 +118,7 @@ namespace P1_AppConsole.Features
             SearchFeature search = campus.Management.SearchFeature;
             Grade grade = new();
             int studentID, subjectID;
+            string? firstName, lastName;
 
             display.Header();
             display.Display(campus.Students);
@@ -128,12 +138,17 @@ namespace P1_AppConsole.Features
                 display.Footer();
                 return;
             }
+            display.Footer();
             grade.SubjectName = campus.Subjects[subjectID];
             grade.SetScore();
+            display.Footer();
             grade.SetEvaluation();
             campus.Students[studentID].Grades.Add(grade);
-            campus.Students[studentID].CalcAverage();
+            firstName = campus.Students[studentID].FirstName;
+            lastName = campus.Students[studentID].LastName;
             display.Footer();
+            SaveJson(campus);
+            SaveLog($"Add grade to #{studentID} {firstName} {lastName}");
         }
 
         public bool Save(Campus campus)
@@ -172,13 +187,13 @@ namespace P1_AppConsole.Features
         public void SaveJson(Campus campus)
         {
             string json = JsonConvert.SerializeObject(campus);
-            File.WriteAllText("db.json", json);
+            File.WriteAllText("campus.json", json);
         }
 
         public void SaveLog(string entry)
         {
-            string log = $"{DateTime.Now} {entry}\n";
-            File.AppendAllText("log.txt", log);
+            string log = $"{DateTime.Now} - {entry}\n";
+            File.AppendAllText("campus.txt", log);
         }
     }
 }

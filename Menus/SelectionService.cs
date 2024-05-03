@@ -1,9 +1,11 @@
 ﻿using P1_AppConsole.Models;
 using P1_AppConsole.Features;
+using P1_AppConsole.Interfaces;
+using Newtonsoft.Json;
 
 namespace P1_AppConsole.Menus
 {
-    public class SelectionService
+    public class SelectionService : ILog
     {
         private void Select(Menu menu)
         {
@@ -57,6 +59,7 @@ namespace P1_AppConsole.Menus
                 switch (manager.Option)
                 {
                     case 1:
+                        SaveLog("View all students");
                         m.DisplayFeature.Display(campus.Students);
                         display.Control();
                         break;
@@ -97,6 +100,7 @@ namespace P1_AppConsole.Menus
                 switch (manager.Option)
                 {
                     case 1:
+                        SaveLog("View all subjects");
                         m.DisplayFeature.Display(campus.Subjects);
                         display.Control();
                         break;
@@ -116,6 +120,12 @@ namespace P1_AppConsole.Menus
                         break;
                 }
             }
+        }
+
+        public void SaveLog(string entry)
+        {
+            string log = $"{DateTime.Now} - {entry}\n";
+            File.AppendAllText("campus.txt", log);
         }
     }
 }

@@ -7,19 +7,15 @@ namespace P1_AppConsole.Models
 {
     public class Student : ICredential
     {
-        [JsonIgnore]
         public int ID { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Birthdate { get; set; }
         public List<Grade> Grades { get; set; }
-        [JsonIgnore]
-        public double Average { get; set; }
 
         public Student()
         {
             Grades = [];
-            Average = 0;
         }
 
         public void SetID(Campus campus)
@@ -63,11 +59,15 @@ namespace P1_AppConsole.Models
             return date.ToString("D");
         }
 
-        public void CalcAverage()
+        public double CalcAverage()
         {
+            double average = 0;
+
             foreach (Grade grade in Grades)
-                Average += grade.Score;
-            Average /= Grades.Count;
+                average += grade.Score;
+            average /= Grades.Count;
+
+            return double.IsNaN(average) ? 0 : average;
         }
     }
 }
